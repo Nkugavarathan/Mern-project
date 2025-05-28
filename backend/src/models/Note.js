@@ -34,3 +34,5 @@ This creates a Mongoose model named "Note" based on the noteSchema.
 It allows you to use Note.find(), Note.create(), etc.
 */
 export default Note
+
+//Note is the Mongoose model that you created using the schema.

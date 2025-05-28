@@ -31,9 +31,10 @@ export const upadateNote = async (req, res) => {
       {
         title,
         description,
-        image,
+        image, //This is the update data you're sending in the body of the PUT request. () update aga vendiya akala podura
       },
-      { new: true }
+      { new: true } // By default, MongoDB returns the document *before* the update.
+      // Setting `new: true` makes it return the updated version instead.
     )
     if (!updatedNote) {
       return res.status(404).json({ message: "Note not found" })
@@ -47,8 +48,19 @@ export const upadateNote = async (req, res) => {
 }
 export const deleteNote = async (req, res) => {
   try {
+    // Use the Note model to find the note by ID and delete it from the database // Find the note by ID and delete it
+    const deletedNote = await Note.findByIdAndDelete(req.params.id)
+
+    // If no note is found with that ID, return 404
+    if (!deletedNote) {
+      return res.status(404).json({ message: "Note not found" })
+    }
+
+    // If successfully deleted, return a success response
+    return res.status(200).json({ message: "Note deleted successfully" })
   } catch (error) {
-    console.error("Error in ceatenotes controllers", error)
+    // Log error and return internal server error response
+    console.error("Error in deleteNote controller", error)
     res.status(500).json({ message: "Internal server error" })
   }
 }
