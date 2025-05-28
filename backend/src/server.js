@@ -40,8 +40,8 @@ import noteRoutes from "./routes/notesRoutes.js"
 // Load environment variables
 dotenv.config()
 
-console.log("MONGO_URI:", process.env.MONGO_URI) // Debug check
-
+// console.log("MONGO_URI:", process.env.MONGO_URI) // Debug check
+const PORT = process.env.PORT || 3000
 const app = express()
 
 // Connect DB
@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
 })
 
 // Start server
-const PORT = 5100
+
 app.listen(PORT, () => {
   console.log(`App running on http://localhost:${PORT}`)
 })
