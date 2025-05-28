@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Form</title>
+  </head>
+  <body>
+    <h2>Create User</h2>
+    <form id="userForm">
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter name"
+        required
+      /><br /><br />
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter email"
+        required
+      /><br /><br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <p id="responseMsg"></p>
+
+    <script>
+      const form = document.getElementById("userForm")
+      const responseMsg = document.getElementById("responseMsg")
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault() // prevent form from refreshing the page
+
+        const name = document.getElementById("name").value
+        const email = document.getElementById("email").value
+
+        try {
+          const res = await fetch("http://localhost:3000/posts", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email }),
+          })
+
+          const data = await res.json() // read the JSON response
+          responseMsg.textContent = data.message // Show "User created"
+        } catch (error) {
+          responseMsg.textContent = "Something went wrong!"
+        }
+      })
+    </script>
+  </body>
+</html>
