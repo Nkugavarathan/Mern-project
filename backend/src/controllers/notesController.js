@@ -29,6 +29,7 @@ export const createNote = async (req, res) => {
   try {
     // destruct panni edukuram req.body la varathu objects format la irukum {"title":"sdfsdf","description":"sdsdf"}
     const { title, description, image } = req.body // req.body in Express refers to the body of the incoming HTTP request — specifically the data that is sent by the client (e.g., Postman, a React frontend, etc.) in a POST, PUT, or PATCH request.
+    // usign the app.use(express.json()) middle ware thats converts object format before sending response
     const newNote = new Note({ title, description, image })
     const note = await newNote.save()
     return res.status(201).json(note)

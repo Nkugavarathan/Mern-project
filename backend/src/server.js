@@ -37,7 +37,7 @@ import cors from "cors"
 
 import dotenv from "dotenv"
 import { connectdb } from "./config/db.js"
-
+import { rateLimiter } from "./middleware/rateLimiter.js"
 import noteRoutes from "./routes/notesRoutes.js"
 
 // Load environment variables
@@ -56,6 +56,28 @@ connectdb()
 app.use(express.json())
 //This middleware is used to parse incoming JSON request bodies. It tells Express to automatically convert JSON data from the client into a usable req.body object.
 //before routes add this middleware
+
+app.use(rateLimiter)
+
+//understand next()
+
+// Custom middleware to log the HTTP method and request URL for each incoming request
+// app.use((req, res, next) => {
+//   console.log(`Req method ${req.method} & Req URL is ${req.url}`)
+//   next() // Pass control to the next middleware or route handler
+// })
+// // Custom Middleware #1
+// app.use((req, res, next) => {
+//   console.log("Step 1: Logger Middleware")
+//   next() // Move to next middleware
+// })
+
+// // Custom Middleware #2
+// app.use((req, res, next) => {
+//   console.log("Step 2: Another Middleware")
+//   next() // Move to the route
+// })
+
 // Routes
 app.use("/api/notes", noteRoutes)
 
