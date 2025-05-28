@@ -49,9 +49,6 @@ const app = express()
 
 app.use(cors())
 
-// Connect DB
-connectdb()
-
 // Middleware
 app.use(express.json())
 //This middleware is used to parse incoming JSON request bodies. It tells Express to automatically convert JSON data from the client into a usable req.body object.
@@ -87,6 +84,10 @@ app.get("/", (req, res) => {
 
 // Start server
 
-app.listen(PORT, () => {
-  console.log(`App running on http://localhost:${PORT}`)
+// Connect DB
+connectdb().then(() => {
+  // once mongodb connect then only server run
+  app.listen(PORT, () => {
+    console.log(`App running on http://localhost:${PORT}`)
+  })
 })
