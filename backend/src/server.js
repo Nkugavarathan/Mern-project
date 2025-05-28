@@ -33,8 +33,11 @@
 // })
 
 import express from "express"
+import cors from "cors"
+
 import dotenv from "dotenv"
 import { connectdb } from "./config/db.js"
+
 import noteRoutes from "./routes/notesRoutes.js"
 
 // Load environment variables
@@ -44,12 +47,15 @@ dotenv.config()
 const PORT = process.env.PORT || 3000
 const app = express()
 
+app.use(cors())
+
 // Connect DB
 connectdb()
 
 // Middleware
 app.use(express.json())
-
+//This middleware is used to parse incoming JSON request bodies. It tells Express to automatically convert JSON data from the client into a usable req.body object.
+//before routes add this middleware
 // Routes
 app.use("/api/notes", noteRoutes)
 

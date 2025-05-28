@@ -4,7 +4,7 @@ import mongoose, { mongo } from "mongoose"
 //steps
 //1. create schema
 //2. model based of that schema
-const noteSchema = new mongoose.Schema()(
+const noteSchema = new mongoose.Schema(
   // create schema
   {
     title: {
