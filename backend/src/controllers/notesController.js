@@ -1,16 +1,30 @@
 // Handle logic for each route (create, read, update, delete).
 
 import Note from "../models/Note.js"
+
+// get all note              // in here ididnt use req so use _(underscore) instead of req
 export const getAllNotes = async (req, res) => {
   try {
-    const notes = await Note.find()
+    // -1 will sort in desc order (newst first )
+    const notes = await Note.find().sort({ createdAt: -1 }) // newst first according to time
     res.status(200).json(notes)
   } catch (error) {
     console.error("Error in getAllnotes controllers", error)
     res.status(500).json({ message: "Internal server error" })
   }
 }
+// get note using id
+export async function getNotesById(req, res) {
+  try {
+    const note = await Note.findById(req.params.id)
+    if (!note) {
+      return res.status(404).json({ message: "Note not successfully" })
+    }
+    res.status(200).json(note)
+  } catch (error) {}
+}
 
+//create note
 export const createNote = async (req, res) => {
   try {
     // destruct panni edukuram req.body la varathu objects format la irukum {"title":"sdfsdf","description":"sdsdf"}
@@ -23,6 +37,8 @@ export const createNote = async (req, res) => {
     res.status(500).json({ message: "Internal server error" })
   }
 }
+
+// // update note
 export const upadateNote = async (req, res) => {
   try {
     const { title, description, image } = req.body // req.body in Express refers to the body of the incoming HTTP request — specifically the data that is sent by the client (e.g., Postman, a React frontend, etc.) in a POST, PUT, or PATCH request.
@@ -46,6 +62,8 @@ export const upadateNote = async (req, res) => {
     res.status(500).json({ message: "Internal server error" })
   }
 }
+
+//delete note
 export const deleteNote = async (req, res) => {
   try {
     // Use the Note model to find the note by ID and delete it from the database // Find the note by ID and delete it

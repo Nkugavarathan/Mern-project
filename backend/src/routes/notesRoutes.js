@@ -6,11 +6,13 @@ import {
   deleteNote,
   getAllNotes,
   upadateNote,
+  getNotesById,
 } from "../controllers/notesController.js"
 
 const router = express.Router()
 
 router.get("/", getAllNotes)
+router.get("/:id", getNotesById)
 
 router.post("/", createNote)
 
