@@ -1,3 +1,5 @@
+// Handle logic for each route (create, read, update, delete).
+
 export const getAllNotes = async (req, res) => {
   res.status(200).send("u fetched the note")
 }

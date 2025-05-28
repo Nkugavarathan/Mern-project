@@ -1,3 +1,5 @@
+// Define HTTP endpoints.(path(URL) +HTTP methodsa )
+
 import express from "express"
 import {
   createNote,

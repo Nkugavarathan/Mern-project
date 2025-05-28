@@ -1,3 +1,5 @@
+// Define MongoDB schema using Mongoose.
+
 import mongoose, { mongo } from "mongoose"
 //steps
 //1. create schema
