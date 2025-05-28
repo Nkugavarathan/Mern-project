@@ -5,11 +5,8 @@ const app = express()
 
 app.use(express.json()) // to parse JSON bodies
 
-// Use CORS if needed
-// import cors from "cors";
-// app.use(cors());
-
 app.use("/api/notes", noteRoutes)
+
 app.get("/", (req, res) => {
   res.send("Welcome to the MERN Notes App!")
 })
