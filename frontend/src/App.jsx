@@ -5,7 +5,6 @@ import CreatePage from "./pages/CreatePage"
 import NoteDetailPage from "./pages/NoteDetailPage"
 // import { Toaster, toast } from "react-hot-toast"
 
-import Navbar from "./components/Navbar"
 export default function App() {
   return (
     //     Add Toaster to render the toast notifications
@@ -25,7 +24,6 @@ export default function App() {
     // </h1> */
 
     <div>
-      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
