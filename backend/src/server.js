@@ -40,12 +40,22 @@ import { connectdb } from "./config/db.js"
 import { rateLimiter } from "./middleware/rateLimiter.js"
 import noteRoutes from "./routes/notesRoutes.js"
 
+import path from "path"
+import { fileURLToPath } from "url"
+import { dirname } from "path"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+// ✅ Serve uploaded images statically
 // Load environment variables
 dotenv.config()
 
 // console.log("MONGO_URI:", process.env.MONGO_URI) // Debug check
 const PORT = process.env.PORT || 3000
 const app = express()
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
 app.use(cors())
 

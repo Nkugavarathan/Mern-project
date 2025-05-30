@@ -12,7 +12,7 @@ import upload from "../middleware/uploadMiddleware.js"
 
 const router = express.Router()
 
-router.post("/notes", upload.single("image"), createNote)
+router.post("/", upload.single("image"), createNote)
 
 router.get("/", getAllNotes)
 router.get("/:id", getNotesById)
