@@ -1,12 +1,46 @@
+import api from "../../lib/axios"
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import toast from "react-hot-toast"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function CreatePage() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [image, setImage] = useState("")
+  cosnt[(loading, setLoading)] = useState(false)
 
-  const handleSubmit = () => {}
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!title.trim() || !description.trim()) {
+      toast.error("All fields are require")
+      return
+    }
+    setLoading(true)
+
+    try {
+      await api.post("/notes", {
+        title,
+        description,
+        image,
+      })
+      toast.success("Note created successfully")
+      navigate("/")
+    } catch (error) {
+      console.log("error")
+
+      if (error.response.status === 429) {
+        toast.error("Slow down you are createing notes too fast", {
+          duration: 5000,
+          icon: "😠",
+        })
+      } else {
+        toast.error("Error")
+      }
+    }
+  }
   return (
     <div className="min-h-screen bg-base-200">
       <div className="container mx-auto px-4 py-8">
@@ -46,14 +80,14 @@ export default function CreatePage() {
 
                 <div className="form-control mb-4">
                   <label className="label">
-                    <span className="label-text">Title </span>
+                    <span className="label-text">Image </span>
                   </label>
                   <input
                     type="text"
                     className="input input-bordered"
                     placeholder="Note Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
                   />
                 </div>
 
