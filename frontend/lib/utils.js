@@ -1,7 +1,7 @@
 export function formatDate(date) {
-  return date.toLocalDateString("en-US", {
+  return new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
-    day: "numberic",
+    day: "numeric",
   })
 }

@@ -12,9 +12,9 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
 
   // useEffect(() => {
-  //   const fetchNotes = async () => {
+  //   const fetchs = async () => {
   //     try {
-  //       const res = await fetch("http://localhost:5100/api/notes")
+  //       const res = await fetch("http://localhost:5100/api/s")
   //       const data = await res.json()
   //       console.log(data)
   //     } catch (error) {
@@ -22,12 +22,12 @@ export default function HomePage() {
   //     }
   //   }
 
-  //   fetchNotes()
+  //   fetchs()
   // })
 
   //useing axios
   useEffect(() => {
-    const fetchNotes = async () => {
+    const fetchs = async () => {
       try {
         const res = await api.get("/notes")
         console.log(res.data) // axios stores the data in res.data
@@ -45,7 +45,7 @@ export default function HomePage() {
       }
     }
 
-    fetchNotes()
+    fetchs()
   }, [])
 
   return (

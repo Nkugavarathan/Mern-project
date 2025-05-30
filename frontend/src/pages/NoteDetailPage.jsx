@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { LoaderIcon, Trash2Icon, ArrowLeftIcon } from "lucide-react"
 
 export default function NoteDetailPage() {
-  const [note, setNote] = useState(null)
+  const [notes, setNotes] = useState(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
@@ -14,7 +15,7 @@ export default function NoteDetailPage() {
     const fetchNote = async () => {
       try {
         const res = await api.get(`/notes/${id}`)
-        setNote(res.data)
+        setNotes(res.data)
       } catch (error) {
         toast.error("Failed to fecth nthe note")
       } finally {
@@ -38,7 +39,7 @@ export default function NoteDetailPage() {
   }
 
   const handleSave = async () => {
-    if (!note.title.trim() || !note.description.trim()) {
+    if (!notes.title.trim() || !notes.description.trim()) {
       toast.error("Please add a title or content")
       return
     }
@@ -46,7 +47,7 @@ export default function NoteDetailPage() {
     setSaving(true)
 
     try {
-      await api.put(`/notes/${id}`, note)
+      await api.put(`/notes/${id}`, notes)
       toast.success("Note updated successfully")
       navigate("/")
     } catch (error) {
@@ -93,8 +94,8 @@ export default function NoteDetailPage() {
                   type="text"
                   placeholder="Note title"
                   className="input input-bordered"
-                  value={note.title}
-                  onChange={(e) => setNote({ ...note, title: e.target.value })}
+                  value={notes.title}
+                  onChange={(e) => setNotes({ ...note, title: e.target.value })}
                 />
               </div>
 
@@ -105,9 +106,9 @@ export default function NoteDetailPage() {
                 <textarea
                   placeholder="Write your note here..."
                   className="textarea textarea-bordered h-32"
-                  value={note.description}
+                  value={notes.description}
                   onChange={(e) =>
-                    setNote({ ...note, description: e.target.value })
+                    setNotes({ ...notes, description: e.target.value })
                   }
                 />
               </div>

@@ -2,12 +2,15 @@ import api from "../../lib/axios"
 import React, { useState } from "react"
 import toast from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
+import { ArrowLeftIcon } from "lucide-react"
 
 export default function CreatePage() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [image, setImage] = useState("")
-  cosnt[(loading, setLoading)] = useState(false)
+  // const [image, setImage] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const image = "sdfs"
 
   const navigate = useNavigate()
 
@@ -26,6 +29,8 @@ export default function CreatePage() {
         description,
         image,
       })
+      // console.log({ title, description, image })
+
       toast.success("Note created successfully")
       navigate("/")
     } catch (error) {
@@ -42,67 +47,58 @@ export default function CreatePage() {
     }
   }
   return (
-    <div className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <Link to={"/"} className="btn btn-ghost mb-6">
-            <ArrowLeftIcon className="size-5" />
-            Back to Notes
-          </Link>
+    <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-100 flex items-center justify-center px-4">
+      <div className="w-full max-w-2xl">
+        <Link
+          to="/"
+          className="inline-flex items-center text-primary mb-6 hover:underline"
+        >
+          <ArrowLeftIcon className="h-5 w-5 mr-1" />
+          Back to Notes
+        </Link>
 
-          <div className="card bg-base-100">
-            <div className="card-body">
-              <h2 className="card-title text-2xl mb-4">Create New Note</h2>
-              <form onSubmit={handleSubmit}>
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text">Title </span>
-                  </label>
-                  <input
-                    type="text"
-                    className="input input-bordered"
-                    placeholder="Note Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </div>
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text">Content </span>
-                  </label>
-                  <textarea
-                    className="textarea textarea-bordered h-32"
-                    placeholder="Write your note here ...."
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </div>
-
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text">Image </span>
-                  </label>
-                  <input
-                    type="text"
-                    className="input input-bordered"
-                    placeholder="Note Title"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                  />
-                </div>
-
-                <div className="card-actions justify-center">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={loading}
-                  >
-                    {loading ? "creating....." : "Created.."}
-                  </button>
-                </div>
-              </form>
+        <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+          <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
+            📝 Create a New Note
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Title
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="Enter note title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
-          </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Content
+              </label>
+              <textarea
+                className="w-full px-4 py-2 border rounded-xl shadow-sm h-32 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="Write your note here..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
+            {/* Future enhancement: Image URL input field */}
+
+            <div className="text-center">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-primary text-white py-2 px-4 rounded-xl text-lg hover:bg-primary-focus transition-all duration-200 shadow-md"
+              >
+                {loading ? "Creating..." : "Create Note"}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
