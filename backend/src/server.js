@@ -82,6 +82,14 @@ app.get("/", (req, res) => {
   res.send("Welcome to the MERN Notes App!")
 })
 
+// Your routes...
+app.get("/notes/:id", (req, res) => {
+  // example code to send a note
+  res.json({ id: req.params.id, title: "Sample Note" })
+})
+
+app.use("/uploads", express.static("uploads"))
+
 // Start server
 
 // Connect DB

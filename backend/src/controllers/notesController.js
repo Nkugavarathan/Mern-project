@@ -25,22 +25,40 @@ export async function getNotesById(req, res) {
 }
 
 //create note
+// export const createNote = async (req, res) => {
+//   try {
+//     // destruct panni edukuram req.body la varathu objects format la irukum {"title":"sdfsdf","description":"sdsdf"}
+//     const { title, description, image } = req.body // req.body in Express refers to the body of the incoming HTTP request — specifically the data that is sent by the client (e.g., Postman, a React frontend, etc.) in a POST, PUT, or PATCH request.
+//     // usign the app.use(express.json()) middle ware thats converts object format before sending response
+//     const newNote = new Note({ title, description, image })
+//     const note = await newNote.save()
+//     return res.status(201).json(note)
+//   } catch (error) {
+//     console.error("Error in ceatenotes controllers", error)
+//     res.status(500).json({ message: "Internal server error" })
+//   }
+// }
+
 export const createNote = async (req, res) => {
   try {
-    // destruct panni edukuram req.body la varathu objects format la irukum {"title":"sdfsdf","description":"sdsdf"}
-    const { title, description, image } = req.body // req.body in Express refers to the body of the incoming HTTP request — specifically the data that is sent by the client (e.g., Postman, a React frontend, etc.) in a POST, PUT, or PATCH request.
-    // usign the app.use(express.json()) middle ware thats converts object format before sending response
-    const newNote = new Note({ title, description, image })
-    const note = await newNote.save()
-    return res.status(201).json(note)
-  } catch (error) {
-    console.error("Error in ceatenotes controllers", error)
-    res.status(500).json({ message: "Internal server error" })
+    const { title, description } = req.body
+    const imagePath = req.file ? req.file.filename : null
+
+    const note = await Note.create({
+      title,
+      description,
+      image: imagePath,
+    })
+
+    res.status(201).json(note)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to create note" })
   }
 }
 
 // // update note
-export const upadateNote = async (req, res) => {
+export const updateNote = async (req, res) => {
   try {
     const { title, description, image } = req.body // req.body in Express refers to the body of the incoming HTTP request — specifically the data that is sent by the client (e.g., Postman, a React frontend, etc.) in a POST, PUT, or PATCH request.
     const updatedNote = await Note.findByIdAndUpdate(
