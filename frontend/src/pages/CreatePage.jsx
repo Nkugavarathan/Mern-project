@@ -7,45 +7,91 @@ import { ArrowLeftIcon } from "lucide-react"
 export default function CreatePage() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  // const [image, setImage] = useState("")
+  const [image, setImage] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const image = "sdfs"
+  // const image = "sdfs"
 
   const navigate = useNavigate()
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+
+  //   if (!title.trim() || !description.trim()) {
+  //     toast.error("All fields are require")
+  //     return
+  //   }
+  //   setLoading(true)
+
+  //   try {
+  //     await api.post("/notes", {
+  //       title,
+  //       description,
+  //       image,
+  //     })
+  //     // console.log({ title, description, image })
+
+  //     toast.success("Note created successfully")
+  //     navigate("/")
+  //   } catch (error) {
+  //     console.log("error")
+
+  //     if (error.response.status === 429) {
+  //       toast.error("Slow down you are createing notes too fast", {
+  //         duration: 5000,
+  //         icon: "😠",
+  //       })
+  //     } else {
+  //       toast.error("Error")
+  //     }
+  //   }
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!title.trim() || !description.trim()) {
-      toast.error("All fields are require")
+      toast.error("All fields are required")
       return
     }
+    if (!image) {
+      toast.error("Please upload an image")
+      return
+    }
+
     setLoading(true)
 
     try {
-      await api.post("/notes", {
-        title,
-        description,
-        image,
+      const formData = new FormData()
+      formData.append("title", title)
+      formData.append("description", description)
+
+      formData.append("image", image)
+
+      await api.post("/notes", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
-      // console.log({ title, description, image })
 
       toast.success("Note created successfully")
       navigate("/")
     } catch (error) {
-      console.log("error")
+      console.error(error)
 
-      if (error.response.status === 429) {
-        toast.error("Slow down you are createing notes too fast", {
+      if (error.response?.status === 429) {
+        toast.error("Slow down, you're creating notes too fast", {
           duration: 5000,
           icon: "😠",
         })
       } else {
-        toast.error("Error")
+        toast.error("Error creating note")
       }
+    } finally {
+      setLoading(false)
     }
   }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-100 flex items-center justify-center px-4">
       <div className="w-full max-w-2xl">
@@ -88,6 +134,16 @@ export default function CreatePage() {
             </div>
 
             {/* Future enhancement: Image URL input field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Upload Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
 
             <div className="text-center">
               <button
