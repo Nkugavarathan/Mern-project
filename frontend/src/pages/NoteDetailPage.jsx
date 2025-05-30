@@ -400,61 +400,73 @@ export default function NoteDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center py-10 px-4">
-      <div className="w-full max-w-3xl bg-white shadow-2xl rounded-2xl p-8 animate-fade-in">
-        <div className="flex items-center justify-between mb-6">
-          <Link
-            to="/"
-            className="btn btn-outline gap-2 shadow-md hover:shadow-lg transition-all duration-300"
+    <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-100 flex items-center justify-center px-4">
+      <div className="w-full max-w-2xl">
+        <Link
+          to="/"
+          className="inline-flex items-center text-primary mb-6 hover:underline"
+        >
+          <ArrowLeftIcon className="h-5 w-5 mr-1" />
+          Back to Notes
+        </Link>
+
+        <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+          <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
+            ✏️ Edit Note
+          </h2>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleSave()
+            }}
+            className="space-y-6"
           >
-            <ArrowLeftIcon className="h-5 w-5" />
-            Back to Notes
-          </Link>
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Title
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="Enter note title"
+                value={note.title}
+                onChange={(e) => setNote({ ...note, title: e.target.value })}
+              />
+            </div>
 
-          <button
-            onClick={handleDelete}
-            className="btn btn-outline btn-error gap-2 shadow-md hover:shadow-lg transition-all duration-300"
-          >
-            <Trash2Icon className="h-5 w-5" />
-            Delete Note
-          </button>
-        </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Content
+              </label>
+              <textarea
+                className="w-full px-4 py-2 border rounded-xl shadow-sm h-32 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="Write your note content..."
+                value={note.description}
+                onChange={(e) =>
+                  setNote({ ...note, description: e.target.value })
+                }
+              />
+            </div>
 
-        <div className="space-y-6">
-          <div className="form-control">
-            <label className="label font-semibold text-lg">
-              <span className="label-text">Title</span>
-            </label>
-            <input
-              type="text"
-              className="input input-bordered input-lg shadow-sm focus:ring-2 focus:ring-primary transition-all"
-              value={note.title}
-              onChange={(e) => setNote({ ...note, title: e.target.value })}
-            />
-          </div>
+            <div className="flex justify-between items-center gap-4 pt-2">
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="w-1/2 text-red-600 border border-red-300 hover:bg-red-50 py-2 px-4 rounded-xl shadow-sm transition-all"
+              >
+                🗑️ Delete
+              </button>
 
-          <div className="form-control">
-            <label className="label font-semibold text-lg">
-              <span className="label-text">Description</span>
-            </label>
-            <textarea
-              className="textarea textarea-bordered h-40 text-base shadow-sm focus:ring-2 focus:ring-primary transition-all"
-              value={note.description}
-              onChange={(e) =>
-                setNote({ ...note, description: e.target.value })
-              }
-            />
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              className="btn btn-primary btn-lg shadow-md hover:shadow-xl transition-all duration-300"
-              disabled={saving}
-              onClick={handleSave}
-            >
-              {saving ? "Saving..." : "Save Changes"}
-            </button>
-          </div>
+              <button
+                type="submit"
+                disabled={saving}
+                className="w-1/2 bg-primary text-white py-2 px-4 rounded-xl hover:bg-primary-focus transition-all duration-200 shadow-md"
+              >
+                {saving ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
