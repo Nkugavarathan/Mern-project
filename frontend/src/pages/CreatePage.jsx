@@ -93,7 +93,7 @@ export default function CreatePage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary text-white py-2 px-4 rounded-xl text-lg hover:bg-primary-focus transition-all duration-200 shadow-md"
+                className="w-full bg-primary text-white py-2 px-4 rounded-xl text-lg hover:bg-primary-focus transition-all duration-200 shadow-md cursor-pointer"
               >
                 {loading ? "Creating..." : "Create Note"}
               </button>
