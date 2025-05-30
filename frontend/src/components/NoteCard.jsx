@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { formatDate } from "../../lib/utils"
 export default function NoteCard({ note }) {
   return (
     <div>
@@ -14,7 +15,7 @@ export default function NoteCard({ note }) {
           </p>
           <div className="card-actions justify-between items-center mt-4">
             <span className="text-sm text-base-content/60">
-              {note.createdAt}
+              {formatDate(new Date(note.createdAt()))}
             </span>
             <div className="flex items-center gap-4">
               <PenSquareIcon className="size-4" />
