@@ -11,6 +11,7 @@ export default function NoteCard({ note, setNotes }) {
 
     try {
       await api.delete(`/notes/${id}`)
+      // update ui imediately when delete btn click
       setNotes((prev) => prev.filter((note) => note._id !== id)) // get rid of the deleted one
       toast.success("Note Delete successfully")
     } catch (error) {
