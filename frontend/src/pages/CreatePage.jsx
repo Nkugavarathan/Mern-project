@@ -148,6 +148,14 @@ export default function CreatePage() {
                 type="file"
                 accept="image/*"
                 onChange={(e) => setImage(e.target.files[0])}
+                className="block w-full text-sm text-gray-700
+             file:mr-4 file:py-2 file:px-4
+             file:rounded-md file:border-0
+             file:text-sm file:font-semibold
+             file:bg-blue-100 file:text-blue-700
+             hover:file:bg-blue-200
+             cursor-pointer
+             focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
