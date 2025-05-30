@@ -22,7 +22,6 @@ export default function NoteCard({ note, setNotes }) {
   return (
     <div className="bg-gradient-to-br from-orange-100 via-orange-200 to-orange-300 rounded-xl shadow-lg border-t-4 border-orange-400 transition-all duration-300 hover:shadow-2xl">
       <div className="p-6">
-        {/* in here image comes  */}
         {note.image && (
           <img
             src={`http://localhost:5100/uploads/${note.image}`}

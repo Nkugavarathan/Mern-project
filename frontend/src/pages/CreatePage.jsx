@@ -74,6 +74,13 @@ export default function CreatePage() {
         },
       })
 
+      // if (res.data.image) {
+      //   setPreview(
+      //     res.data.image.startsWith("http")
+      //       ? res.data.image
+      //       : `http://localhost:5100/uploads/${res.data.image}`
+      //   )
+      // }
       toast.success("Note created successfully")
       navigate("/")
     } catch (error) {
@@ -133,7 +140,6 @@ export default function CreatePage() {
               />
             </div>
 
-            {/* Future enhancement: Image URL input field */}
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Upload Image
