@@ -315,20 +315,84 @@ export default function NoteDetailPage() {
   const navigate = useNavigate()
   const { id } = useParams()
 
-  // Fetch note by ID
+  // // Fetch note by ID
+  // useEffect(() => {
+  //   const fetchNote = async () => {
+  //     try {
+  //       const response = await fetch(`http://localhost:5100/notes/${id}`)
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch note")
+  //       }
+  //       const data = await response.json()
+  //       setNote(data)
+  //       // const res = await api.get("/notes/${id}")
+  //       // // axios stores the data in res.data
+  //       // setNote(res.data)
+  //       // console.log("Fetched note:", res.data)
+  //     } catch (error) {
+  //       console.error("Error fetching note:", error)
+  //       toast.error("Could not load the note")
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   fetchNote()
+  // }, [id])
+
+  // // Delete note
+  // const handleDelete = async () => {
+  //   if (!window.confirm("Are you sure you want to delete this note?")) return
+
+  //   try {
+  //     const response = await fetch(`http://localhost:5100/api/notes/${id}`, {
+  //       method: "DELETE",
+  //     })
+  //     if (!response.ok) throw new Error("Failed to delete note")
+  //     toast.success("Note deleted")
+  //     navigate("/")
+  //   } catch (error) {
+  //     console.error("Error deleting note:", error)
+  //     toast.error("Failed to delete note")
+  //   }
+  // }
+
+  // // Save note
+  // const handleSave = async () => {
+  //   if (!note.title.trim() || !note.description.trim()) {
+  //     toast.error("Please enter a title and description")
+  //     return
+  //   }
+
+  //   setSaving(true)
+  //   try {
+  //     const response = await fetch(`http://localhost:5100/api/notes/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(note),
+  //     })
+  //     if (!response.ok) throw new Error("Failed to update note")
+  //     toast.success("Note updated successfully")
+  //     navigate("/")
+  //   } catch (error) {
+  //     console.error("Error updating note:", error)
+  //     toast.error("Failed to update note")
+  //   } finally {
+  //     setSaving(false)
+  //   }
+  // }
+
+  // ✅ Fetch note by ID
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const response = await fetch(`http://localhost:5100/notes/${id}`)
-        if (!response.ok) {
-          throw new Error("Failed to fetch note")
-        }
-        const data = await response.json()
-        setNote(data)
-        // const res = await api.get("/notes/${id}")
-        // // axios stores the data in res.data
-        // setNote(res.data)
-        // console.log("Fetched note:", res.data)
+        const res = await api.get(`/notes/${id}`)
+        setNote(res.data)
+        console.log("Datassssss", res.data)
+        /*
+        Datassssss {_id: '6839af3d73d666ed97b7d8fc', title: '.m.mk', description: ',ll;', image: 'sdfs', createdAt: '2025-05-30T13:14:37.810Z', …}
+         */
       } catch (error) {
         console.error("Error fetching note:", error)
         toast.error("Could not load the note")
@@ -339,15 +403,12 @@ export default function NoteDetailPage() {
     fetchNote()
   }, [id])
 
-  // Delete note
+  // ✅ Handle Delete
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this note?")) return
 
     try {
-      const response = await fetch(`http://localhost:5100/api/notes/${id}`, {
-        method: "DELETE",
-      })
-      if (!response.ok) throw new Error("Failed to delete note")
+      await api.delete(`/notes/${id}`)
       toast.success("Note deleted")
       navigate("/")
     } catch (error) {
@@ -356,7 +417,7 @@ export default function NoteDetailPage() {
     }
   }
 
-  // Save note
+  // ✅ Handle Save
   const handleSave = async () => {
     if (!note.title.trim() || !note.description.trim()) {
       toast.error("Please enter a title and description")
@@ -365,14 +426,7 @@ export default function NoteDetailPage() {
 
     setSaving(true)
     try {
-      const response = await fetch(`http://localhost:5100/api/notes/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(note),
-      })
-      if (!response.ok) throw new Error("Failed to update note")
+      await api.put(`/notes/${id}`, note)
       toast.success("Note updated successfully")
       navigate("/")
     } catch (error) {
@@ -453,7 +507,7 @@ export default function NoteDetailPage() {
               <button
                 type="button"
                 onClick={handleDelete}
-                className="w-1/2 text-red-600 border border-red-300 hover:bg-red-50 py-2 px-4 rounded-xl shadow-sm transition-all"
+                className="w-1/2 text-red-600 border border-red-300 hover:bg-red-50 py-2 px-4 rounded-xl shadow-sm transition-all cursor-pointer"
               >
                 🗑️ Delete
               </button>
@@ -461,7 +515,7 @@ export default function NoteDetailPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="w-1/2 bg-primary text-white py-2 px-4 rounded-xl hover:bg-primary-focus transition-all duration-200 shadow-md"
+                className="w-1/2 bg-primary text-white py-2 px-4 rounded-xl hover:bg-primary-focus transition-all duration-200 shadow-md cursor-pointer "
               >
                 {saving ? "Saving..." : "Save Changes"}
               </button>
