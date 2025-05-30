@@ -3,21 +3,19 @@ import { Link } from "react-router-dom"
 import { formatDate } from "../../lib/utils"
 import { toast } from "react-hot-toast"
 import { PenSquareIcon, Trash2Icon } from "lucide-react"
+import api from "../../lib/axios"
 
 export default function NoteCard({ note, setNotes }) {
   const handleDelete = async (id) => {
-    // e.preventDefault() // get rid of the navigation behavior // we put entire card for Link so click that card go to createpage but that delete btn also click go to create page thats problem so e.preventDefault()   prevented that
-    if (!window.confirm("Are you sure to delete")) {
-      return
-    }
+    if (!window.confirm("Are you sure to delete")) return
 
     try {
       await api.delete(`/notes/${id}`)
-      // update ui imediately when delete btn click
-      setNotes((prev) => prev.filter((note) => note._id !== id)) // get rid of the deleted one
-      toast.success("Note Delete successfully")
+      setNotes((prev) => prev.filter((note) => note._id !== id))
+      toast.success("Note deleted successfully")
     } catch (error) {
-      toast.error("failed to delete")
+      console.error("DELETE ERROR:", error)
+      toast.error("Failed to delete")
     }
   }
 
