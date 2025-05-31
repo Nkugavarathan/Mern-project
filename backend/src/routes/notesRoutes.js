@@ -17,11 +17,11 @@ router.post("/", upload.single("image"), createNote)
 router.get("/", getAllNotes)
 router.get("/:id", getNotesById)
 
-router.put("/notes/:id", upload.single("image"), updateNote)
+router.put("/:id", upload.single("image"), updateNote)
 
 // router.post("/", createNote)
 
-router.put("/:id", updateNote)
+// router.put("/:id", updateNote)
 router.delete("/:id", deleteNote)
 
 export default router

@@ -58,26 +58,53 @@ export const createNote = async (req, res) => {
 }
 
 // // update note
+// export const updateNote = async (req, res) => {
+//   try {
+//     const { title, description, image } = req.body // req.body in Express refers to the body of the incoming HTTP request — specifically the data that is sent by the client (e.g., Postman, a React frontend, etc.) in a POST, PUT, or PATCH request.
+//     const updatedNote = await Note.findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         title,
+//         description,
+//         image, //This is the update data you're sending in the body of the PUT request. () update aga vendiya akala podura
+//       },
+//       { new: true } // By default, MongoDB returns the document *before* the update.
+//       // Setting `new: true` makes it return the updated version instead.
+//     )
+//     if (!updatedNote) {
+//       return res.status(404).json({ message: "Note not found" })
+//     }
+
+//     return res.status(200).json(updatedNote) //displays updted notes
+//   } catch (error) {
+//     console.error("Error in update controllers", error)
+//     res.status(500).json({ message: "Internal server error" })
+//   }
+// }
+
 export const updateNote = async (req, res) => {
   try {
-    const { title, description, image } = req.body // req.body in Express refers to the body of the incoming HTTP request — specifically the data that is sent by the client (e.g., Postman, a React frontend, etc.) in a POST, PUT, or PATCH request.
+    const { title, description } = req.body
+    let updatedData = { title, description }
+
+    if (req.file) {
+      // If image is uploaded, include it
+      updatedData.image = req.file.filename
+    }
+
     const updatedNote = await Note.findByIdAndUpdate(
       req.params.id,
-      {
-        title,
-        description,
-        image, //This is the update data you're sending in the body of the PUT request. () update aga vendiya akala podura
-      },
-      { new: true } // By default, MongoDB returns the document *before* the update.
-      // Setting `new: true` makes it return the updated version instead.
+      updatedData,
+      { new: true }
     )
+
     if (!updatedNote) {
       return res.status(404).json({ message: "Note not found" })
     }
 
-    return res.status(200).json(updatedNote) //displays updted notes
+    return res.status(200).json(updatedNote)
   } catch (error) {
-    console.error("Error in update controllers", error)
+    console.error("Error in updateNote controller:", error)
     res.status(500).json({ message: "Internal server error" })
   }
 }
