@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import HomePage from "./pages/HomePage"
 import CreatePage from "./pages/CreatePage"
 import NoteDetailPage from "./pages/NoteDetailPage"
-// import { Toaster, toast } from "react-hot-toast"
+import { Toaster } from "react-hot-toast"
 
 export default function App() {
   return (
@@ -33,6 +33,8 @@ export default function App() {
           <Route path="/notes/:id" element={<NoteDetailPage />} />
         </Routes>
       </div>
+      {/* for work toast */}
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   )
 }
