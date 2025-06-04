@@ -1,12 +1,28 @@
-# React + Vite
+# 📝 MERN Note-Taking App with Image Upload
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a full-stack Note-Taking Web App built using the **MERN stack** — MongoDB, Express.js, React, and Node.js. Users can create, view, update, and delete notes, and also upload images for each note.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔐 Admin login system  
+- 📝 Create, Read, Update, and Delete (CRUD) notes  
+- 🖼 Image upload support (file upload or image URL)  
+- 🌐 RESTful API integration  
+- 💅 Clean UI using Tailwind CSS  
+- 🗂 MongoDB schema with Mongoose  
+- 🔄 Realtime UI updates using React state  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧰 Tech Stack
+
+- **MongoDB** – NoSQL database  
+- **Express.js** – Backend framework for Node.js  
+- **React.js** – Frontend library  
+- **Node.js** – JavaScript runtime for server  
+- **Multer** – Image/file upload handling  
+- **Tailwind CSS** – Utility-first CSS framework  
+
+---
